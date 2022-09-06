@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 
+from .bot_interactions import *
+from db.db import _URL
 
 COMMANDS = []
 def append_command(command):
@@ -18,10 +20,11 @@ async def _main(ctx):
     view = discord.ui.View()
     items =\
         [
-            discord.ui.Button(label='도움말'),
-            discord.ui.Button(label='가입하기'),
-            discord.ui.Button(label='정산 등록하기'),
-            discord.ui.Button(label='정산 참여하기'),
+            InteractionButton(label='도움말'),
+            InteractionButton(label='가입하기'),
+            InteractionButton(label='정산 등록하기'),
+            InteractionButton(label='정산 참여하기'),
+            InteractionButton(label='장부 확인하기', url=_URL),
         ]
     
     for item in items:

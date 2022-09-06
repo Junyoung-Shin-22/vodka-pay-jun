@@ -11,5 +11,19 @@ with open(os.path.join(_PATH, 'sheet-url.txt')) as f:
 _SERVICE = gspread.service_account(filename=_KEY)
 DB = _SERVICE.open_by_url(_URL)
 
+DB_USERS = DB.worksheet('users')
+
+def db_get_users_data():
+    return DB_USERS.get_all_values()
+
+def db_get_users_id():
+    return [user[0] for user in db_get_users_data()]
+
+def db_add_user(id, account):
+    data = db_get_users_data()
+    data.append([id, account])
+
+    DB_USERS.update('A1', data)
+
 if __name__ == '__main__':
-    print(DB)
+    db_add_user(2, 26)
